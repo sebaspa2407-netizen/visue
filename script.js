@@ -25,6 +25,13 @@ const CONFIG = {
     { src: 'assets/img/captura-3.jpg', alt: 'Captura real del prototipo de VISUE: la letra reconocida convertida en texto y voz, y el avatar.' }
   ],
 
+  // Equipo (mismo orden que en el HTML). Si dejas «rol», «descripcion» o «portafolio» vacíos,
+  // se conserva lo que está escrito en index.html. Las fotos se detectan solas por su nombre.
+  equipo: [
+    { foto: 'assets/img/equipo-gustavo.jpg',   rol: '', descripcion: '', portafolio: '' },
+    { foto: 'assets/img/equipo-juan-david.jpg', rol: '', descripcion: '', portafolio: '' },
+    { foto: 'assets/img/equipo-sebastian.jpg',  rol: '', descripcion: '', portafolio: '' }
+  ]
 };
 
 /* ---------------------------------------------------------
