@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" role="img" aria-labelledby="hero-title hero-desc">
+  <title id="hero-title">Mano con 21 puntos detectados</title>
+  <desc id="hero-desc">Ilustración tecnológica de una mano abierta sobre la que se dibujan 21 puntos y líneas de reconocimiento, rodeada de elementos de inteligencia artificial.</desc>
+  <defs>
+    <linearGradient id="g-line" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <radialGradient id="g-glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="g-scan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#5eead4" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip-frame"><rect x="64" y="52" width="392" height="456" rx="28"/></clipPath>
+  </defs>
+  <style>
+    .pulse{animation:pulse 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+    .pulse.d2{animation-delay:.5s}.pulse.d3{animation-delay:1s}.pulse.d4{animation-delay:1.5s}
+    .scan{animation:scan 4.5s ease-in-out infinite}
+    .float{animation:float 5s ease-in-out infinite}
+    .float.d2{animation-delay:1.4s}.float.d3{animation-delay:2.6s}
+    .spin{animation:spin 60s linear infinite;transform-origin:260px 280px}
+    text{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(1.35)}}
+    @keyframes scan{0%{transform:translateY(60px)}50%{transform:translateY(440px)}100%{transform:translateY(60px)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  </style>
+
+  <!-- Resplandor de fondo -->
+  <circle cx="260" cy="280" r="250" fill="url(#g-glow)"/>
+  <g class="spin" fill="none" stroke="#38bdf8" stroke-opacity=".22" stroke-width="1.2">
+    <circle cx="260" cy="280" r="228" stroke-dasharray="3 9"/>
+    <circle cx="260" cy="280" r="188" stroke-dasharray="14 10"/>
+  </g>
+
+  <!-- Marco de visor de cámara -->
+  <g fill="none" stroke="#5eead4" stroke-width="4" stroke-linecap="round" stroke-opacity=".9">
+    <path d="M64 96V80a28 28 0 0 1 28-28h16"/>
+    <path d="M412 52h16a28 28 0 0 1 28 28v16"/>
+    <path d="M456 464v16a28 28 0 0 1-28 28h-16"/>
+    <path d="M108 508H92a28 28 0 0 1-28-28v-16"/>
+  </g>
+
+  <!-- Línea de escaneo -->
+  <g clip-path="url(#clip-frame)">
+    <g class="scan"><rect x="64" y="50" width="392" height="3" fill="url(#g-scan)"/></g>
+  </g>
+
+  <!-- Mano (desplazada para centrarla en el visor) -->
+  <g transform="translate(60 40)">
+    <!-- Silueta translúcida de la mano -->
+    <g fill="none" stroke="#38bdf8" stroke-opacity=".13" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M200 420 L150 385 L112 340 L85 295 L62 255"/>
+      <path d="M160 290 L150 225 L143 175 L138 130"/>
+      <path d="M205 275 L208 200 L210 145 L212 95"/>
+      <path d="M248 285 L262 220 L270 172 L276 128"/>
+      <path d="M285 310 L310 262 L326 228 L340 196"/>
+    </g>
+    <path d="M200 420 L150 385 L160 290 L205 275 L248 285 L285 310 Z" fill="#38bdf8" fill-opacity=".14" stroke="none"/>
+
+    <!-- Esqueleto de la mano: 21 puntos -->
+    <g fill="none" stroke="url(#g-line)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M200 420 L150 385 L112 340 L85 295 L62 255"/>
+      <path d="M200 420 L160 290 L150 225 L143 175 L138 130"/>
+      <path d="M160 290 L205 275 L208 200 L210 145 L212 95"/>
+      <path d="M205 275 L248 285 L262 220 L270 172 L276 128"/>
+      <path d="M248 285 L285 310 L310 262 L326 228 L340 196"/>
+      <path d="M285 310 L200 420"/>
+    </g>
+
+    <!-- Puntos articulares -->
+    <g fill="#e0f7ff" stroke="#06122b" stroke-width="1.5">
+      <circle cx="200" cy="420" r="6.5"/>
+      <circle cx="150" cy="385" r="5"/><circle cx="112" cy="340" r="5"/><circle cx="85" cy="295" r="5"/>
+      <circle cx="160" cy="290" r="5"/><circle cx="150" cy="225" r="5"/><circle cx="143" cy="175" r="5"/>
+      <circle cx="205" cy="275" r="5"/><circle cx="208" cy="200" r="5"/><circle cx="210" cy="145" r="5"/>
+      <circle cx="248" cy="285" r="5"/><circle cx="262" cy="220" r="5"/><circle cx="270" cy="172" r="5"/>
+      <circle cx="285" cy="310" r="5"/><circle cx="310" cy="262" r="5"/><circle cx="326" cy="228" r="5"/>
+    </g>
+    <!-- Puntas de los dedos (resaltadas) -->
+    <g fill="#2dd4bf" stroke="#06122b" stroke-width="1.5">
+      <circle class="pulse" cx="62" cy="255" r="7.5"/>
+      <circle class="pulse d2" cx="138" cy="130" r="7.5"/>
+      <circle class="pulse d3" cx="212" cy="95" r="7.5"/>
+      <circle class="pulse d4" cx="276" cy="128" r="7.5"/>
+      <circle class="pulse d2" cx="340" cy="196" r="7.5"/>
+    </g>
+  </g>
+
+  <!-- Red neuronal / IA (arriba a la derecha) -->
+  <!-- (el grupo exterior posiciona; el interior anima, para que la animación no pise la posición) -->
+  <g transform="translate(396 84)">
+    <g class="float">
+      <g stroke="#38bdf8" stroke-opacity=".65" stroke-width="1.4" fill="none">
+        <path d="M0 0 L38 -14 M0 0 L34 26 M38 -14 L34 26 M38 -14 L72 6 M34 26 L72 6"/>
+      </g>
+      <g fill="#0b1f4a" stroke="#38bdf8" stroke-width="2">
+        <circle cx="0" cy="0" r="7"/><circle cx="38" cy="-14" r="7"/><circle cx="34" cy="26" r="7"/><circle cx="72" cy="6" r="7"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Etiquetas flotantes -->
+  <g class="float d2">
+    <rect x="12" y="132" width="132" height="38" rx="19" fill="#0b1f4a" stroke="#38bdf8" stroke-opacity=".6"/>
+    <circle cx="34" cy="151" r="5" fill="#2dd4bf"/>
+    <text x="48" y="156" fill="#e8f1ff" font-size="14" font-weight="600">21 puntos</text>
+  </g>
+  <g class="float d3">
+    <rect x="6" y="406" width="170" height="38" rx="19" fill="#0b1f4a" stroke="#38bdf8" stroke-opacity=".6"/>
+    <circle cx="28" cy="425" r="5" fill="#38bdf8"/>
+    <text x="42" y="430" fill="#e8f1ff" font-size="14" font-weight="600">Random Forest</text>
+  </g>
+  <g class="float">
+    <rect x="352" y="428" width="156" height="38" rx="19" fill="#0b1f4a" stroke="#2dd4bf" stroke-opacity=".7"/>
+    <path d="M374 447h5l6-6v12l-6-6h-5z" fill="#5eead4"/>
+    <path d="M391 441q4 6 0 12" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round"/>
+    <text x="404" y="452" fill="#e8f1ff" font-size="14" font-weight="600">Texto y voz</text>
+  </g>
+</svg>
