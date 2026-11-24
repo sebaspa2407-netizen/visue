@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ============ SEO BÁSICO ============ -->
+  <title>VISUE · Comunicación sin barreras | Lengua de Señas Colombiana</title>
+  <meta name="description" content="VISUE es una aplicación web gratuita que conecta a personas sordas y oyentes mediante el reconocimiento de letras de la Lengua de Señas Colombiana (LSC). Proyecto universitario de la Institución Universitaria Pascual Bravo.">
+  <meta name="keywords" content="VISUE, Lengua de Señas Colombiana, LSC, accesibilidad, inclusión, personas sordas, MediaPipe, Random Forest, Pascual Bravo">
+  <meta name="author" content="Gustavo Giraldo, Juan David Quevedo, Sebastián Arévalo">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#06122b">
+
+  <!-- Open Graph (vista previa al compartir el enlace) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:title" content="VISUE · Comunicación sin barreras">
+  <meta property="og:description" content="Conectamos a personas sordas y oyentes mediante tecnología de reconocimiento de la Lengua de Señas Colombiana.">
+
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+
+  <!-- Tipografías (Sora para títulos, Inter para textos). Si no cargan, se usa la fuente del sistema. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <!-- Marca que JavaScript está activo (las animaciones solo se ocultan si hay JS) -->
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- ============ ICONOS (sprite SVG reutilizable) ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M7 6.5h.01M10 6.5h.01"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v1"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3l14 9-14 9z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="m7.5 7.5 3.6 9M16.5 7.5l-3.6 9M8 6h8"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-graduation" viewBox="0 0 24 24"><path d="m22 10-10-5L2 10l10 5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  </svg>
+
+  <!-- ============ ENCABEZADO / NAVEGACIÓN ============ -->
+  <header class="site-header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#inicio" aria-label="VISUE, ir al inicio">
+        <img src="assets/img/logo.svg" width="40" height="40" alt="">
+        <span class="brand__name">VISUE</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <svg class="icon icon--open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+
+      <nav class="nav" id="menu" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#problema">El problema</a></li>
+          <li><a href="#solucion">Solución</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#video">Video</a></li>
+          <li><a href="#ensayo">Ensayo</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#prueba">Probar VISUE</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 1 · INICIO                                    -->
+    <!-- ===================================================== -->
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="badge reveal"><svg class="icon" aria-hidden="true"><use href="#i-graduation"/></svg> Proyecto universitario · Institución Universitaria Pascual Bravo</p>
+
+          <h1 id="hero-titulo" class="hero__title reveal" style="--d:.05s">
+            <img class="hero__logo" src="assets/img/logo.svg" width="72" height="72" alt="Logotipo de VISUE">
+            <span>VISUE</span>
+          </h1>
+          <p class="hero__slogan reveal" style="--d:.1s">Comunicación sin barreras</p>
+          <p class="hero__text reveal" style="--d:.15s">Conectamos a personas sordas y oyentes mediante tecnología de reconocimiento de la Lengua de Señas Colombiana.</p>
+
+          <div class="hero__actions reveal" style="--d:.2s">
+            <a class="btn btn--primary btn--lg" href="#solucion">Conoce nuestra solución <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--ghost btn--lg" href="#prueba">Probar VISUE</a>
+          </div>
+
+          <ul class="chips reveal" style="--d:.25s" aria-label="Características principales">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg> Gratuita</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-hand"/></svg> Enfocada en la LSC</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg> Dos direcciones</li>
+          </ul>
+        </div>
+
+        <div class="hero__visual reveal" style="--d:.15s">
+          <img src="assets/img/hero-mano.svg" width="520" height="560" alt="Ilustración de una mano con 21 puntos detectados por inteligencia artificial, junto a las etiquetas «21 puntos», «Random Forest» y «Texto y voz»." fetchpriority="high">
+        </div>
+      </div>
+
+      <!-- VISUE en 10 segundos -->
+      <div class="container">
+        <aside class="quick card reveal" aria-labelledby="quick-titulo">
+          <h2 id="quick-titulo" class="quick__title">VISUE en 10 segundos</h2>
+          <dl class="quick__list">
+            <div class="quick__row">
+              <dt><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg> ¿Qué es?</dt>
+              <dd>Una aplicación web gratuita que conecta a personas sordas y oyentes en ambas direcciones: de señas a texto y voz, y de texto y voz a señas.</dd>
+            </div>
+            <div class="quick__row">
+              <dt><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg> ¿Qué problema busca solucionar?</dt>
+              <dd>Muchas personas oyentes no conocen la lengua de señas, y esa barrera de comunicación limita oportunidades de las personas sordas.</dd>
+            </div>
+            <div class="quick__row">
+              <dt><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg> ¿A quién beneficia?</dt>
+              <dd>A personas sordas que usan la LSC y a personas oyentes que no la conocen.</dd>
+            </div>
+            <div class="quick__row">
+              <dt><svg class="icon" aria-hidden="true"><use href="#i-scan"/></svg> ¿Cómo funciona?</dt>
+              <dd>La cámara detecta 21 puntos de la mano con MediaPipe y un modelo Random Forest identifica la letra.</dd>
+            </div>
+            <div class="quick__row">
+              <dt><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg> ¿Cómo probarlo?</dt>
+              <dd>Abre el prototipo desde tu celular con el botón <a href="#prueba">Probar VISUE</a>.</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 2 · EL PROBLEMA                               -->
+    <!-- ===================================================== -->
+    <section class="section" id="problema" aria-labelledby="problema-titulo">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">El problema</p>
+          <h2 id="problema-titulo">Una barrera que casi no se ve</h2>
+          <p class="section__lead">Para muchas personas sordas, pedir un favor tan simple como una fotografía puede volverse imposible.</p>
+        </header>
+
+        <div class="problem__grid">
+          <article class="story card reveal" aria-labelledby="historia-titulo">
+            <p class="story__tag"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg> Una historia real</p>
+            <h3 id="historia-titulo">El paseo al charco</h3>
+            <p>Gustavo recuerda un paseo a un charco en el que dos mujeres sordas querían pedir ayuda para tomarse una fotografía, pero no lo hicieron porque las personas que estaban alrededor no conocían la lengua de señas.</p>
+            <p>Solo cuando una amiga que sabía señas se dio cuenta, pudieron solucionar la situación.</p>
+          </article>
+
+          <div class="problem__side reveal" style="--d:.1s">
+            <p class="problem__text">Muchas veces la barrera de comunicación es <strong>invisible</strong>. Nadie la nota hasta que alguien necesita ayuda y no puede pedirla. Y esa barrera limita oportunidades:</p>
+            <ul class="tags" aria-label="Ámbitos que afecta la barrera de comunicación">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg> Cotidianas</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-graduation"/></svg> Educativas</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg> Laborales</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg> De salud</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="subhead reveal">Las cifras detrás de la barrera</h3>
+        <p class="note reveal">Estos datos corresponden a las cifras citadas en nuestro ensayo. Las barras comparan las tres cantidades a escala.</p>
+
+        <ul class="stats" aria-label="Cifras citadas en el ensayo">
+          <li class="stat card reveal">
+            <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+            <p class="stat__value"><span data-count="459784">459.784</span></p>
+            <p class="stat__label">personas sordas en Colombia</p>
+            <div class="bar" role="img" aria-label="Barra de referencia al 100 %"><span style="--w:100%"></span></div>
+            <p class="stat__ref">Fuente: <span class="editable">[Agregar la referencia citada en el ensayo]</span></p>
+          </li>
+          <li class="stat card reveal" style="--d:.1s">
+            <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></span>
+            <p class="stat__value"><span data-count="8989">8.989</span></p>
+            <p class="stat__label">acceden a educación básica o media</p>
+            <div class="bar" role="img" aria-label="Barra muy corta comparada con el total"><span style="--w:1.955%"></span></div>
+            <p class="stat__ref">Fuente: <span class="editable">[Agregar la referencia citada en el ensayo]</span></p>
+          </li>
+          <li class="stat card reveal" style="--d:.2s">
+            <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-graduation"/></svg></span>
+            <p class="stat__value"><span data-count="899">899</span></p>
+            <p class="stat__label">llegan a educación superior</p>
+            <div class="bar" role="img" aria-label="Barra mínima comparada con el total"><span style="--w:.195%"></span></div>
+            <p class="stat__ref">Fuente: <span class="editable">[Agregar la referencia citada en el ensayo]</span></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 3 · NUESTRA SOLUCIÓN                          -->
+    <!-- ===================================================== -->
+    <section class="section section--alt" id="solucion" aria-labelledby="solucion-titulo">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Nuestra solución</p>
+          <h2 id="solucion-titulo">Comunicación en dos direcciones</h2>
+          <p class="section__lead">VISUE es una herramienta de apoyo que permite que una persona sorda y una persona oyente se entiendan, sin que la segunda tenga que saber señas.</p>
+        </header>
+
+        <div class="duo">
+          <article class="feature card reveal">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></span>
+            <h3>De señas a texto y voz</h3>
+            <p>Reconocimiento de señas mediante cámara: el sistema reconoce las letras del alfabeto de la LSC y las convierte en texto y en voz en español de Colombia.</p>
+            <ol class="flow" aria-label="Flujo de señas a texto y voz">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-hand"/></svg>Seña</li>
+              <li class="flow__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-text"/></svg>Texto</li>
+              <li class="flow__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-volume"/></svg>Voz</li>
+            </ol>
+          </article>
+
+          <article class="feature card reveal" style="--d:.1s">
+            <span class="feature__icon feature__icon--teal"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg></span>
+            <h3>De texto y voz a señas</h3>
+            <p>Conversión de texto o voz en señas mediante un avatar: la persona oyente escribe o dicta una frase y el avatar la representa deletreándola con señas.</p>
+            <ol class="flow" aria-label="Flujo de texto y voz a señas">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>Escribe o dicta</li>
+              <li class="flow__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>Avatar</li>
+              <li class="flow__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-hand"/></svg>Señas</li>
+            </ol>
+          </article>
+        </div>
+
+        <ul class="highlights" aria-label="Aspectos destacados">
+          <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-gift"/></svg><strong>Es gratuita</strong><span>Cualquier persona puede usarla sin costo.</span></li>
+          <li class="reveal" style="--d:.05s"><svg class="icon" aria-hidden="true"><use href="#i-hand"/></svg><strong>Enfocada en la LSC</strong><span>Pensada para la Lengua de Señas Colombiana.</span></li>
+          <li class="reveal" style="--d:.1s"><svg class="icon" aria-hidden="true"><use href="#i-swap"/></svg><strong>Funciona en ambas direcciones</strong><span>De señas a texto y voz, y de texto y voz a señas.</span></li>
+          <li class="reveal" style="--d:.15s"><svg class="icon" aria-hidden="true"><use href="#i-browser"/></svg><strong>Procesamiento en el navegador</strong><span>El modelo se ejecuta en el navegador.</span></li>
+        </ul>
+
+        <div class="callout reveal" role="note">
+          <svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>
+          <p><strong>Una herramienta de apoyo.</strong> Actualmente VISUE reconoce <strong>letras estáticas</strong> del alfabeto de la LSC (la Ñ no está incluida en esta versión). No es un traductor completo de la Lengua de Señas Colombiana ni reemplaza a intérpretes profesionales.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 4 · ¿CÓMO FUNCIONA?                           -->
+    <!-- ===================================================== -->
+    <section class="section" id="como-funciona" aria-labelledby="como-titulo">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">¿Cómo funciona?</p>
+          <h2 id="como-titulo">Tres pasos, una conversación</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step card reveal">
+            <div class="step__head">
+              <span class="step__num" aria-hidden="true">1</span>
+              <span class="step__icon"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></span>
+              <div>
+                <p class="step__label">Paso 1</p>
+                <h3>Captura</h3>
+              </div>
+            </div>
+            <p>El usuario muestra su mano frente a la cámara y el sistema captura la seña.</p>
+            <figure class="shot" data-shot="0">
+              <div class="shot__placeholder">
+                <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                <p><strong>Captura real del prototipo (pendiente)</strong></p>
+                <p class="shot__hint">Guarda la imagen como <code>assets/img/captura-1.jpg</code></p>
+              </div>
+            </figure>
+          </li>
+
+          <li class="step card reveal" style="--d:.1s">
+            <div class="step__head">
+              <span class="step__num" aria-hidden="true">2</span>
+              <span class="step__icon"><svg class="icon" aria-hidden="true"><use href="#i-network"/></svg></span>
+              <div>
+                <p class="step__label">Paso 2</p>
+                <h3>Reconocimiento</h3>
+              </div>
+            </div>
+            <p>MediaPipe identifica los puntos de la mano y el modelo Random Forest clasifica la letra.</p>
+            <figure class="shot" data-shot="1">
+              <div class="shot__placeholder">
+                <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                <p><strong>Captura real del prototipo (pendiente)</strong></p>
+                <p class="shot__hint">Guarda la imagen como <code>assets/img/captura-2.jpg</code></p>
+              </div>
+            </figure>
+          </li>
+
+          <li class="step card reveal" style="--d:.2s">
+            <div class="step__head">
+              <span class="step__num" aria-hidden="true">3</span>
+              <span class="step__icon"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg></span>
+              <div>
+                <p class="step__label">Paso 3</p>
+                <h3>Comunicación</h3>
+              </div>
+            </div>
+            <p>La letra reconocida se convierte en texto y voz. En el sentido contrario, el usuario puede escribir o dictar y visualizar las señas mediante el avatar.</p>
+            <figure class="shot" data-shot="2">
+              <div class="shot__placeholder">
+                <svg class="icon" aria-hidden="true"><use href="#i-image"/></svg>
+                <p><strong>Captura real del prototipo (pendiente)</strong></p>
+                <p class="shot__hint">Guarda la imagen como <code>assets/img/captura-3.jpg</code></p>
+              </div>
+            </figure>
+          </li>
+        </ol>
+
+        <h3 class="subhead reveal">Datos técnicos del modelo</h3>
+        <ul class="facts">
+          <li class="reveal"><strong>21</strong><span>puntos de la mano identificados con MediaPipe</span></li>
+          <li class="reveal" style="--d:.05s"><strong>≈ 13.000</strong><span>fotografías de entrenamiento (500 por letra)</span></li>
+          <li class="reveal" style="--d:.1s"><strong>26</strong><span>letras del alfabeto (la Ñ no está incluida en esta versión)</span></li>
+          <li class="reveal" style="--d:.15s"><strong>≈ 81 %</strong><span>de precisión en las pruebas realizadas</span></li>
+        </ul>
+        <p class="note reveal">Tecnologías: Python, MediaPipe, Scikit-learn, Random Forest, HTML, CSS y JavaScript.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 5 · PRUEBA VISUE                              -->
+    <!-- ===================================================== -->
+    <section class="section try" id="prueba" aria-labelledby="prueba-titulo">
+      <div class="container">
+        <div class="try__panel reveal">
+          <div class="try__copy">
+            <p class="eyebrow eyebrow--light">Prueba VISUE</p>
+            <h2 id="prueba-titulo">Pruébalo tú mismo, ahora</h2>
+            <p class="try__lead">Abre el prototipo desde tu celular o computador. Para el reconocimiento de señas tendrás que permitir el acceso a la cámara.</p>
+
+            <ul class="tips" aria-label="Consejos para probar">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Busca un lugar con buena iluminación.</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Mantén la mano completa dentro del encuadre.</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Recuerda que VISUE reconoce letras estáticas, una a la vez.</li>
+            </ul>
+
+            <div class="try__actions">
+              <a class="btn btn--primary btn--xl" href="#prueba" data-prototype-link target="_blank" rel="noopener noreferrer">ABRIR PROTOTIPO VISUE <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg><span class="sr-only">(se abre en una pestaña nueva)</span></a>
+              <button class="btn btn--ghost btn--lg" type="button" id="embed-toggle" aria-expanded="false" aria-controls="embed-frame">Ver vista previa incrustada</button>
+            </div>
+            <p class="try__hint">En celulares, abrir el prototipo en su propia pestaña suele funcionar mejor para usar la cámara.</p>
+          </div>
+
+          <!-- Contenedor del iframe: se activa al pulsar «Ver vista previa incrustada» -->
+          <div class="embed" id="embed-frame" hidden>
+            <div class="embed__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="embed__body" id="embed-slot"></div>
+            <p class="embed__fallback">¿No se ve la vista previa? Algunas plataformas no permiten incrustarse. Usa el botón <strong>ABRIR PROTOTIPO VISUE</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 6 · VIDEO PITCH                               -->
+    <!-- ===================================================== -->
+    <section class="section" id="video" aria-labelledby="video-titulo">
+      <div class="container container--narrow">
+        <header class="section__head reveal">
+          <p class="eyebrow">Video pitch</p>
+          <h2 id="video-titulo">Conoce VISUE en acción</h2>
+          <p class="section__lead">Descubre cómo nuestra solución busca derribar las barreras de comunicación.</p>
+        </header>
+
+        <div class="video reveal" id="video-slot">
+          <div class="video__placeholder">
+            <span class="video__play"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>
+            <p><strong>Video pitch (pendiente)</strong></p>
+            <p class="shot__hint">Pega el enlace de YouTube en <code>script.js</code> → <code>CONFIG.videoUrl</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 7 · NUESTRO ENSAYO                            -->
+    <!-- ===================================================== -->
+    <section class="section section--alt" id="ensayo" aria-labelledby="ensayo-titulo">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Nuestro ensayo</p>
+          <h2 id="ensayo-titulo">Conoce la investigación detrás de VISUE</h2>
+        </header>
+
+        <div class="essay card reveal">
+          <div class="essay__info">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <h3>Ensayo académico del proyecto</h3>
+            <p class="essay__desc" data-essay-desc>Documento académico que sustenta el proyecto y en el que se citan las cifras sobre población sorda y acceso a la educación en Colombia que presentamos en este sitio.</p>
+            <div class="essay__actions">
+              <a class="btn btn--primary" href="#ensayo" data-pdf-download download><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Descargar ensayo (PDF)</a>
+              <a class="btn btn--ghost" href="#ensayo" data-pdf-open target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg> Abrir en otra pestaña<span class="sr-only"> (se abre en una pestaña nueva)</span></a>
+            </div>
+          </div>
+
+          <div class="pdf" id="pdf-slot">
+            <div class="pdf__placeholder">
+              <svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>
+              <p><strong>Visor del ensayo (pendiente)</strong></p>
+              <p class="shot__hint">Copia tu PDF a <code>assets/docs/ensayo.pdf</code> y ajusta <code>CONFIG.ensayoPdf</code> en <code>script.js</code></p>
+            </div>
+          </div>
+        </div>
+        <p class="note reveal">Si el visor no se muestra bien en tu celular, usa los botones para descargar el documento o abrirlo en otra pestaña.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 8 · NUESTRO EQUIPO                            -->
+    <!-- ===================================================== -->
+    <section class="section" id="equipo" aria-labelledby="equipo-titulo">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Nuestro equipo</p>
+          <h2 id="equipo-titulo">Las personas detrás de VISUE</h2>
+        </header>
+
+        <ul class="team">
+          <!-- Integrante 1 · Edita nombre/rol/descripción aquí o en script.js (CONFIG.equipo) -->
+          <li class="member card reveal" data-member="0">
+            <div class="member__photo"><span class="member__initials" aria-hidden="true">GG</span></div>
+            <p class="member__photo-hint">Foto pendiente</p>
+            <h3 class="member__name">Gustavo Giraldo</h3>
+            <p class="member__role is-pending">[Rol dentro del proyecto]</p>
+            <p class="member__desc is-pending">[Breve descripción]</p>
+            <a class="btn btn--ghost btn--sm member__link" href="#equipo" data-portfolio target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg> Ver portafolio<span class="sr-only"> de Gustavo Giraldo</span></a>
+          </li>
+
+          <!-- Integrante 2 -->
+          <li class="member card reveal" style="--d:.1s" data-member="1">
+            <div class="member__photo"><span class="member__initials" aria-hidden="true">JQ</span></div>
+            <p class="member__photo-hint">Foto pendiente</p>
+            <h3 class="member__name">Juan David Quevedo</h3>
+            <p class="member__role is-pending">[Rol dentro del proyecto]</p>
+            <p class="member__desc is-pending">[Breve descripción]</p>
+            <a class="btn btn--ghost btn--sm member__link" href="#equipo" data-portfolio target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg> Ver portafolio<span class="sr-only"> de Juan David Quevedo</span></a>
+          </li>
+
+          <!-- Integrante 3 -->
+          <li class="member card reveal" style="--d:.2s" data-member="2">
+            <div class="member__photo"><span class="member__initials" aria-hidden="true">SA</span></div>
+            <p class="member__photo-hint">Foto pendiente</p>
+            <h3 class="member__name">Sebastián Arévalo</h3>
+            <p class="member__role is-pending">[Rol dentro del proyecto]</p>
+            <p class="member__desc is-pending">[Breve descripción]</p>
+            <a class="btn btn--ghost btn--sm member__link" href="#equipo" data-portfolio target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg> Ver portafolio<span class="sr-only"> de Sebastián Arévalo</span></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================== -->
+  <!-- SECCIÓN 9 · PIE DE PÁGINA                             -->
+  <!-- ===================================================== -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="#inicio" aria-label="VISUE, volver al inicio">
+          <img src="assets/img/logo.svg" width="44" height="44" alt="">
+          <span class="brand__name">VISUE</span>
+        </a>
+        <p class="footer__phrase">La comunicación nos conecta</p>
+        <p class="footer__small">VISUE es una herramienta de apoyo que actualmente reconoce letras estáticas de la LSC. No reemplaza a intérpretes profesionales.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación del pie de página">
+        <h2 class="footer__title">Secciones</h2>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#problema">El problema</a></li>
+          <li><a href="#solucion">Nuestra solución</a></li>
+          <li><a href="#como-funciona">¿Cómo funciona?</a></li>
+          <li><a href="#prueba">Prueba VISUE</a></li>
+          <li><a href="#video">Video pitch</a></li>
+          <li><a href="#ensayo">Nuestro ensayo</a></li>
+          <li><a href="#equipo">Nuestro equipo</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__inst">
+        <h2 class="footer__title">Proyecto universitario</h2>
+        <p>Institución Universitaria Pascual Bravo</p>
+        <p>Año 2026</p>
+        <a class="footer__top" href="#top"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg> Volver arriba</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© 2026 VISUE · Institución Universitaria Pascual Bravo</p>
+    </div>
+  </footer>
+
+  <!-- Aviso breve (accesible) para mensajes como «enlace sin configurar» -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
